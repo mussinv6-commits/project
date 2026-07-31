@@ -46,6 +46,19 @@ public class MemberController {
 		
 		return service.idcheck(id);	
 	}
-	
-	
+	// 내 정보 조회
+	@PostMapping("/getMember")
+    public MemberDto getMember(@RequestBody MemberDto dto) {
+		System.out.println("MemberController getMember() " + new Date());
+        
+        // 프론트에서 넘어온 id로 회원 정보 조회
+        return service.getMember(dto.getId());
+    }
+	// 내 정보 수정
+	@PostMapping("/updateMember")
+	public boolean updateMember(@RequestBody MemberDto dto) {
+	    System.out.println("MemberController updateMember() " + new Date());
+	    
+	    return service.updateMember(dto);
+	}
 }
