@@ -22,6 +22,20 @@ public class MemberService {
     public List<MemberDto> allMemberDao(){
         return dao.allmember(); 
     }
-    
+    // 회원가입
+    public boolean addmember(MemberDto dto) {
+
+        int count = dao.addmember(dto);
+        return count > 0;
+	}
+    // 로그인
+	public MemberDto login(MemberDto dto) {
+        return dao.login(dto);
+    }
+    // 아이디 중복확인
+	public boolean idcheck(String id) {
+	    int count = dao.idcheck(id);
+	    return count > 0;
+	}
 
 }

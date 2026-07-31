@@ -7,17 +7,17 @@ public class MemberDto implements Serializable {
 		
 	}
 	
-    private int seq;
+    private Integer seq;
     private String id;     
     private String pw;
     private String name;
     private String email;
     private String carTypes;
     private String carNum;    
-    private String storeNum;
-    private int auth;
-	public MemberDto(int seq, String id, String pw, String name, String email, String carTypes, String carNum,
-			String storeNum, int auth) {
+    private Integer storeNum;
+    private Integer auth;
+	public MemberDto(Integer seq, String id, String pw, String name, String email, String carTypes, String carNum,
+			Integer storeNum, Integer auth) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -29,10 +29,10 @@ public class MemberDto implements Serializable {
 		this.storeNum = storeNum;
 		this.auth = auth;
 	}
-	public int getSeq() {
+	public Integer getSeq() {
 		return seq;
 	}
-	public void setSeq(int seq) {
+	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
 	public String getId() {
@@ -71,16 +71,16 @@ public class MemberDto implements Serializable {
 	public void setCarNum(String carNum) {
 		this.carNum = carNum;
 	}
-	public String getStoreNum() {
+	public Integer getStoreNum() {
 		return storeNum;
 	}
-	public void setStoreNum(String storeNum) {
+	public void setStoreNum(Integer storeNum) {
 		this.storeNum = storeNum;
 	}
-	public int getAuth() {
+	public Integer getAuth() {
 		return auth;
 	}
-	public void setAuth(int auth) {
+	public void setAuth(Integer auth) {
 		this.auth = auth;
 	}
 

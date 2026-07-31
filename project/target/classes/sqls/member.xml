@@ -9,4 +9,25 @@
         select * from usermember
     </select>
 
+ 	<!--회원가입 	 auth가 null이면 DB 디폴트 동작과 동일하게 3 적용, 2가 넘어오면 2 적용 -->
+	<insert id="addmember" parameterType="com.mbc.project.dto.MemberDto">
+		insert into usermember(id,pw, name, email, carTypes, carNum, storeNum, auth)	
+		values(#{id}, #{pw}, #{name}, #{email}, COALESCE(#{carTypes}, 'general'),
+		 #{carNum}, #{storeNum}, COALESCE(#{auth}, 3))
+	</insert>
+	
+	<!--login-->
+	<select id="login" parameterType="com.mbc.project.dto.MemberDto" resultType="com.mbc.project.dto.MemberDto">
+		select id, name, email, auth, carTypes, carNum, storeNum
+		from usermember
+		where id=#{id} and pw=#{pw}
+	</select>
+	
+	<!--id 중복확인-->
+	<select id="idcheck" parameterType="String" resultType="Integer">
+	select count(*)
+	from usermember
+	where id=#{id}
+ 	</select>
+
 </mapper>

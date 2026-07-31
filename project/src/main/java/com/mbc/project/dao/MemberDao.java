@@ -14,6 +14,13 @@ public interface MemberDao {
 	
 	// 전체 조회 (목록용)
     List<MemberDto> allmember();
+    // 회원 가입
+    int addmember(MemberDto dto);
+    // 로그인
+    MemberDto login(MemberDto dto); 
+    // ID 중복확인
+    int idcheck(String id);
+
 }
     
 
