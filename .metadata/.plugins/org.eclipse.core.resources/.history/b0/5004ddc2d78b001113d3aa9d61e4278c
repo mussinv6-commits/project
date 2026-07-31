@@ -1,0 +1,8 @@
+spring.application.name=project
+
+server.port=3000
+
+spring.datasource.hikari.driver-class-name=org.postgresql.Driver
+spring.datasource.hikari.jdbc-url=jdbc:postgresql://localhost:5432/project
+spring.datasource.hikari.username=project
+spring.datasource.hikari.password=1234

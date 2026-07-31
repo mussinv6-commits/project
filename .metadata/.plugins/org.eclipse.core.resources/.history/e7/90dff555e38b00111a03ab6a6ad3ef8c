@@ -1,0 +1,37 @@
+package com.mbc.project.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.mbc.project.dao.MemberDao;
+import com.mbc.project.dto.MemberDto;
+
+@Service
+@Transactional
+public class MemberService {
+	// final MemberDao dao; // ◀ 잠시 주석 처리
+	
+	// ◀ 생성자 전체를 잠시 주석 처리
+	// public MemberService(MemberDao dao) {
+	// 	this.dao = dao;
+	// }
+    
+    // 기본 생성자를 하나 추가해 줍니다 (스프링 구동용)
+    public MemberService() {}
+
+	public List<MemberDto> allMemberDao(){
+		// return dao.allmember(); // ◀ 잠시 주석 처리
+		return null; // 임시 반환
+	}
+	public MemberDto findByUserId(String user_id) {
+		// return dao.findByUserId(user_id); // ◀ 잠시 주석 처리
+		return null;
+	}
+	public MemberDto findBySellerLogin(String seller_login) {
+		// return dao.findBySellerLogin(seller_login); // ◀ 잠시 주석 처리
+		return null;
+	}
+    public void joinMember(MemberDto dto) {
+        dao.joinMember(dto); // XML 매퍼와 연결된 가입 메서드 호출
+    }
+}

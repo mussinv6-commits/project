@@ -1,0 +1,32 @@
+package com.mbc.project.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.mbc.project.dao.MemberDao;
+import com.mbc.project.dto.MemberDto;
+
+@Service
+@Transactional
+public class MemberService {
+	final MemberDao dao;
+	
+	public MemberService(MemberDao dao) {
+		this.dao = dao;
+
+	}
+	public List<MemberDto> allMemberDao(){
+		
+		return dao.allmember();
+	}
+	public MemberDto findByUserId(String user_id) {
+		return dao.findByUserId(user_id);
+		
+	}
+	public MemberDto findBySellerLogin(String seller_login) {
+		return dao.findBySellerLogin(seller_login);
+	
+	}
+}

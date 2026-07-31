@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.mbc.project.dao.MemberDao">
+
+    <!-- 1. 테이블명을 실제 DB에 생성된 usermember로 수정 -->
+    <select id="allmember" resultType="com.mbc.project.dto.MemberDto">
+        select * from usermember
+    </select>
+
+    <!-- 2. 기존 형식 그대로 상인 테이블(sellermember) 조회 쿼리 추가 -->
+    <select id="findBySellerLogin" resultType="com.mbc.project.dto.MemberDto">
+        select * from sellermember
+    </select>
+
+</mapper>

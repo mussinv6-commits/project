@@ -1,0 +1,5 @@
+package com.mbc.project.dao;
+
+public class MemberDao {
+
+}

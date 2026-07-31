@@ -1,0 +1,64 @@
+package com.mbc.project.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mbc.project.dto.MemberDto;
+import com.mbc.project.service.MemberService;
+
+@RestController
+public class MemberController {
+	
+	final MemberService service;
+	
+	MemberController(MemberService service) {
+		this.service = service;
+	}
+	
+	@PostMapping("/allmember")
+	public List<MemberDto> allmember(){
+	
+		List<MemberDto> dummyList = new ArrayList<>();
+		
+		// 더미데이터 제작
+		dummyList.add(new MemberDto(1, "user01", "seller01", "1234", "홍길동", "hong@test.com", "12가3456", 1));
+		dummyList.add(new MemberDto(2, "user02", "seller02", "5678", "이순신", "lee@test.com", "34나5678", 2));
+		dummyList.add(new MemberDto(3, "user03", "seller03", "abcd", "강감찬", "kang@test.com", "56다7890", 1));
+		
+		// 더미 전달용 
+		return dummyList;
+		
+		// 기존 리턴
+		// return service.allMemberDao();
+	}
+	// 2. 일반 아이디로 조회 요청 시 더미데이터 1개 반환
+    @PostMapping("/findByUserId")
+    public MemberDto findByUserId(@RequestBody MemberDto dto) {
+    	// 요청받은 아이디를 그대로 세팅한 더미데이터 반환
+        return new MemberDto(1, dto.getUser_id(), "seller_test", "1234", "테스트유저", "test@test.com", "99너9999", 1);
+    }
+    
+    // 3. 상인 아이디로 조회 요청 시 더미데이터 1개 반환
+    @PostMapping("/findBySellerLogin")
+    public MemberDto findBySellerLogin(@RequestBody MemberDto dto) {
+    	// 요청받은 상인아이디(seller_id)를 그대로 세팅한 더미데이터 반환
+        return new MemberDto(10, "user_test", dto.getSeller_id(), "1234", "테스트상인", "seller@test.com", "없음", 2);
+    }
+}
+	
+/*
+ * // 일반 아이디로 조회 (JSON Body의 user_id 필드 사용)
+ * 
+ * @PostMapping("findByUserId") public MemberDto findByUserId(@RequestBody
+ * MemberDto dto) { return service.findByUserId(dto.getUser_id()); }
+ * 
+ * // 상인 아이디로 조회 (JSON Body의 seller_login 필드 사용)
+ * 
+ * @PostMapping("findBySellerLogin") public MemberDto
+ * findBySellerLogin(@RequestBody MemberDto dto) { return
+ * service.findBySellerLogin(dto.getSeller_id()); } }
+ */

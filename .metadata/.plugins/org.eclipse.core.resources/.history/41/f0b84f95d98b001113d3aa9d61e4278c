@@ -1,0 +1,5 @@
+package com.mbc.project.service;
+
+public class MemberService {
+
+}

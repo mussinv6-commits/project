@@ -1,0 +1,10 @@
+spring.application.name=project
+
+#db에 연결 할 수있게 설정
+
+server.port=0208
+
+spring.datasource.hikari.driver-class-name=org.postgresql.Driver
+spring.datasource.hikari.jdbc-url=jdbc:postgresql://localhost:5432/project
+spring.datasource.hikari.username=project
+spring.datasource.hikari.password=1234
