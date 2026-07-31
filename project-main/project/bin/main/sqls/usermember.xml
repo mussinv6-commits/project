@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mbc.project.dao.UserMemberDao">
+
+    <insert id="insertUser" parameterType="com.mbc.project.dto.UserMemberDto" useGeneratedKeys="true" keyProperty="seq">
+        INSERT INTO usermember (id, pw, name, email, carTypes, carNum, auth, storeNum)
+        VALUES (#{id}, #{pw}, #{name}, #{email}, #{carTypes}, #{carNum}, 3, #{storeNum})
+    </insert>
+
+    <select id="findById" parameterType="string" resultType="com.mbc.project.dto.UserMemberDto">
+        SELECT * FROM usermember WHERE id = #{id}
+    </select>
+
+</mapper>
