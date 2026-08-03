@@ -28,6 +28,7 @@ public class MemberController {
 	// 회원가입
 	@PostMapping("/addmember")
 	public boolean addmember(@RequestBody MemberDto dto) {
+		// VUE에서 요청이 오면 JSON데이터를 DTO객체로 변환
 		System.out.println("MemberController addmember()" + new Date());
 		
 		return service.addmember(dto);
@@ -35,6 +36,7 @@ public class MemberController {
 	// 로그인
 	@PostMapping("/login")
 	public MemberDto login(MemberDto dto) {
+		// 아이디와 비밀번호를 확인하여 회원 정보를 반환
 		System.out.println("MemberController login() " + new Date());
 		
 		return service.login(dto);
@@ -42,23 +44,9 @@ public class MemberController {
 	// 아이디 중복확인
 	@PostMapping("/idcheck")
 	public boolean idcheck(String id) {
+		// 아이디가 중복인지 확인(true/false 반환)
 		System.out.println("MemberController idcheck()" + new Date());
 		
 		return service.idcheck(id);	
-	}
-	// 내 정보 조회
-	@PostMapping("/getMember")
-    public MemberDto getMember(@RequestBody MemberDto dto) {
-		System.out.println("MemberController getMember() " + new Date());
-        
-        // 프론트에서 넘어온 id로 회원 정보 조회
-        return service.getMember(dto.getId());
-    }
-	// 내 정보 수정
-	@PostMapping("/updateMember")
-	public boolean updateMember(@RequestBody MemberDto dto) {
-	    System.out.println("MemberController updateMember() " + new Date());
-	    
-	    return service.updateMember(dto);
 	}
 }

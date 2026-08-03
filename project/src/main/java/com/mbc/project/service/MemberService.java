@@ -37,14 +37,5 @@ public class MemberService {
 	    int count = dao.idcheck(id);
 	    return count > 0;
 	}
-	// 내 정보 조회
-	public MemberDto getMember(String id) {
-        return dao.getMember(id);
-    }
 
-	// 내 정보 수정 (성공 시 true, 실패 시 false 반환)
-	public boolean updateMember(MemberDto dto) {
-        int count = dao.updateMember(dto);
-        return count > 0;
-    }
 }

@@ -30,21 +30,5 @@
 	where id=#{id}
  	</select>
 
-	<!--내 정보 조회 (ID 기반) -->
-    <select id="getMember" parameterType="String" resultType="com.mbc.project.dto.MemberDto">
-        SELECT seq, id, pw, name, email, carTypes, carNum, storeNum, auth
-        FROM usermember
-        WHERE id = #{id}
-    </select>
-    
-	<!--내 정보 수정 -->
-    <update id="updateMember" parameterType="com.mbc.project.dto.MemberDto">
-        UPDATE usermember
-        SET pw = #{pw},
-            name = #{name},
-            email = #{email},
-            carTypes = #{carTypes},
-            carNum = #{carNum}
-        WHERE id = #{id}
-    </update>
+
 </mapper>
