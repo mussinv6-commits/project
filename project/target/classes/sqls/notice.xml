@@ -9,29 +9,50 @@
     <!-- ========================================== -->
 
     <!-- 공지사항 목록 조회 (상단 고정글이 먼저 나오도록 정렬) -->
-    
+
 <mapper namespace="com.mbc.project.dao.NoticeDao">
+
+    <!-- 공지사항 목록 조회 -->
     <select id="allnotice" resultType="com.mbc.project.dto.NoticeDto">
-        select * from notice order by ispinned desc, seq desc
+        select
+            seq,
+            writerid as writerId,
+            title,
+            content,
+            readcount,
+            ispinned,
+            wdate
+        from notice
+        order by ispinned desc, seq desc
     </select>
 
- 	<!-- 공지사항 등록 (ispinned가 넘어오지 않으면 DB 기본값 false 작동) -->
-	<insert id="addnotice" parameterType="com.mbc.project.dto.NoticeDto">
-		insert into notice(writerid, title, content, ispinned)	
-		values(#{writerid}, #{title}, #{content}, COALESCE(#{ispinned}, false))
-	</insert>
-	
-	<!-- 공지사항 상세 조회 -->
-	<select id="detailnotice" parameterType="Long" resultType="com.mbc.project.dto.NoticeDto">
-		select seq, writerid, title, content, readcount, ispinned, wdate
-		from notice
-		where seq=#{seq}
-	</select>
-	
-	<!-- 공지사항 조회수 증가 -->
-	<update id="updatenoticecount" parameterType="Long">
-		update notice
-		set readcount = readcount + 1
-		where seq=#{seq}
-	</update>
-	</mapper>
+    <!-- 공지사항 등록 -->
+    <insert id="addnotice" parameterType="com.mbc.project.dto.NoticeDto">
+        insert into notice(writerid, title, content, ispinned)
+        values(#{writerId}, #{title}, #{content}, COALESCE(#{ispinned}, false))
+    </insert>
+
+    <!-- 공지사항 상세 조회 -->
+    <select id="detailnotice"
+            parameterType="Long"
+            resultType="com.mbc.project.dto.NoticeDto">
+        select
+            seq,
+            writerid as writerId,
+            title,
+            content,
+            readcount,
+            ispinned,
+            wdate
+        from notice
+        where seq = #{seq}
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updatenoticecount" parameterType="Long">
+        update notice
+        set readcount = readcount + 1
+        where seq = #{seq}
+    </update>
+
+</mapper>
