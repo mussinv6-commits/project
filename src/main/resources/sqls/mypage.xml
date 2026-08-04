@@ -1,0 +1,90 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.project.dao.MyPageDao">
+
+<!--1. 내 정보 조회 (ID 기반) -->
+    <select id="getMember" parameterType="String" resultType="com.mbc.project.dto.MemberDto">
+        SELECT seq, id, pw, name, email, carTypes, carNum, storeNum, auth
+        FROM usermember
+        WHERE id = #{id}
+    </select>
+    
+	<!--2. 내 정보 수정 -->
+   <update id="updateMember" parameterType="com.mbc.project.dto.MemberDto">
+    UPDATE usermember
+    <set>
+        <if test="id != null and id != ''">
+            id = #{id},
+        </if>
+        <if test="pw != null and pw != ''">
+            pw = #{pw},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="email != null and email != ''">
+            email = #{email},
+        </if>
+        <if test="carNum != null">
+            carNum = #{carNum},
+        </if>
+        <if test="carTypes != null">
+            carTypes = #{carTypes}
+        </if>
+    </set>
+    WHERE seq = #{seq}
+</update>
+
+	<!-- 3. 내 차량 위치 조회 (현재 주차 중인 상태만 조회) -->
+    <select id="getCarLocation" parameterType="string" resultType="com.mbc.project.dto.CarLocationDto">
+        SELECT carNum, parkingFloor, entryTime
+        FROM parking_records
+        WHERE carNum = #{carNum} 
+          AND exitTime IS NULL
+        ORDER BY entryTime DESC
+        LIMIT 1
+    </select>
+    
+    <!-- 4. 내 차량 정보 조회-->
+    <select id="getMyCar" parameterType="string" resultType="com.mbc.project.dto.MyCarDto">
+   SELECT 
+        u.id AS id,
+        u.carNum AS carNum,
+        u.carTypes AS carTypes,
+        -- 1. 차량 번호 존재 여부
+        CASE 
+            WHEN u.carNum IS NOT NULL AND u.carNum != '' THEN true 
+            ELSE false 
+        END AS hasCar,
+        -- 2. 오늘 날짜가 정기권 기간 내(startDate ~ endDate)에 들어오는지 체크
+        CASE 
+            WHEN p.regId IS NOT NULL AND CURRENT_DATE BETWEEN p.startDate AND p.endDate THEN true 
+            ELSE false 
+        END AS isPrepaid,
+        p.startDate AS startDate,
+        p.endDate AS endDate
+    FROM usermember u
+    LEFT JOIN prepaid p ON u.carNum = p.carNum 
+                        AND CURRENT_DATE BETWEEN p.startDate AND p.endDate
+    WHERE u.id = #{id}
+    LIMIT 1
+     
+    </select>
+    
+	<!-- 5 & 6. 차량 등록 / 변경 -->
+    <update id="updateCarNum">
+        UPDATE usermember
+        SET carNum = #{carNum},
+        	carTypes = #{carTypes}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 7. 차량 삭제 (NULL 처리) -->
+    <update id="deleteCarNum" parameterType="string">
+        UPDATE usermember
+        SET carNum = NULL
+        WHERE id = #{id}
+    </update>
+
+</mapper>
