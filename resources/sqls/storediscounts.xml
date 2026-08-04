@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.project.dao.StoreDiscountDto">
+<!-- 1. 할인 등록 (Insert) -->
+    <insert id="insertStoreDiscount" parameterType="com.mbc.project.dao.StoreDiscountDto" useGeneratedKeys="true" keyProperty="discountId">
+        INSERT INTO store_discounts (
+            recordId, 
+            storeNum, 
+            freeMin
+        ) VALUES (
+            #{recordId}, 
+            #{storeNum}, 
+            #{freeMin}
+        )
+    </insert>
+
+    <!-- 2. 할인 기록 단건 조회 (Select by ID) -->
+    <select id="selectStoreDiscountById" parameterType="long" resultType="com.mbc.project.dao.StoreDiscountDto">
+        SELECT 
+            discountId, 
+            recordId, 
+            storeNum, 
+            freeMin, 
+            createdAt
+        FROM 
+            store_discounts
+        WHERE 
+            discountId = #{discountId}
+    </select>
+
+    <!-- 3. 특정 주차 기록의 총 무료 제공 시간(분) 조회 (Select Total Free Minutes) -->
+    <select id="selectTotalFreeMinByRecordId" parameterType="long" resultType="int">
+        SELECT 
+            COALESCE(SUM(freeMin), 0)
+        FROM 
+            store_discounts
+        WHERE 
+            recordId = #{recordId}
+    </select>
+
+    <!-- 4. 특정 점포의 할인 등록 내역 조회 (Select by Store) -->
+    <select id="selectStoreDiscountsByStoreNum" parameterType="int" resultType="com.mbc.project.dao.StoreDiscountDto">
+        SELECT 
+            discountId, 
+            recordId, 
+            storeNum, 
+            freeMin, 
+            createdAt
+        FROM 
+            store_discounts
+        WHERE 
+            storeNum = #{storeNum}
+        ORDER BY 
+            createdAt DESC
+    </select>
+
+    <!-- 5. 할인 정보 수정 (Update) -->
+    <update id="updateStoreDiscount" parameterType="com.mbc.project.dao.StoreDiscountDto">
+        UPDATE store_discounts
+        <set>
+            <if test="recordId != null">recordId = #{recordId},</if>
+            <if test="storeNum != null">storeNum = #{storeNum},</if>
+            <if test="freeMin != null">freeMin = #{freeMin}</if>
+        </set>
+        WHERE 
+            discountId = #{discountId}
+    </update>
+
+    <!-- 6. 할인 기록 삭제 (Delete) -->
+    <delete id="deleteStoreDiscount" parameterType="long">
+        DELETE FROM 
+            store_discounts
+        WHERE 
+            discountId = #{discountId}
+    </delete>
+
+</mapper>
